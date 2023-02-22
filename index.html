@@ -102,7 +102,9 @@
     userMessage.textContent = message;
     chat.appendChild(userMessage);
     messageInput.value = "";
-    const apiUrl = "https://cors-anywhere.herokuapp.com/http://api.brainshop.ai/get?bid=172970&key=otjGjD1G6ECyvfHe&uid=123456&msg=" + message + "&name=Kabootar";
+    const apiUrl1 = "https://cors-anywhere.herokuapp.com/http://api.brainshop.ai/get?bid=172970&key=otjGjD1G6ECyvfHe&uid=123456&msg=" + message;
+
+    const apiUrl = "http://api.brainshop.ai/get?bid=172970&key=otjGjD1G6ECyvfHe&uid=123456&msg=" + message;
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
