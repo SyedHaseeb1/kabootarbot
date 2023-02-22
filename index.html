@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KabootarBot</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		.form {
+			display: flex;
+			flex-direction: row;
+			margin-bottom: 20px;
+		}
+
+		.form input[type="text"] {
+			flex-grow: 1;
+			margin-right: 10px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+
+		.form input[type="submit"] {
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		.chat {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column-reverse;
+		}
+
+		.chat li {
+			margin-bottom: 10px;
+			padding: 10px;
+			border-radius: 5px;
+		}
+
+		.chat li.user {
+			background-color: #4CAF50;
+			color: #fff;
+			align-self: flex-end;
+		}
+
+		.chat li.bot {
+			background-color: #ccc;
+			color: #000;
+			align-self: flex-start;
+		}
+
+		.clearfix::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>KabootarBot</h1>
+		<form class="form clearfix" onsubmit="sendMessage(event)">
+			<input type="text" name="message" id="message" placeholder="Type your message here...">
+			<input type="submit" value="Send">
+		</form>
+		<ul class="chat" id="chat"></ul>
+	</div>
+	<script>
+	
+  function sendMessage(event) {
+    event.preventDefault();
+    const messageInput = document.getElementById("message");
+    const message = messageInput.value;
+    if (!message) {
+      return;
+    }
+    const chat = document.getElementById("chat");
+    const userMessage = document.createElement("li");
+    userMessage.classList.add("user");
+    userMessage.textContent = message;
+    chat.appendChild(userMessage);
+    messageInput.value = "";
+    const apiUrl = "https://cors-anywhere.herokuapp.com/http://api.brainshop.ai/get?bid=172970&key=otjGjD1G6ECyvfHe&uid=123456&msg=" + message + "&name=Kabootar";
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const botMessage = document.createElement("li");
+        botMessage.classList.add("bot");
+        botMessage.textContent = data.cnt;
+        chat.appendChild(botMessage);
+      })
+      .catch(error => console.error(error));
+  }
+</script>
+
+	</script>
+</body>
+</html>
